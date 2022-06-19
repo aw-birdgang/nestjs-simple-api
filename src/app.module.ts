@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { CatsController } from './api/cats/cats.controller';
-import { CatsService } from './api/cats/cats.service';
-import { CatsModule } from './api/cats/cats.module';
+import {Module} from '@nestjs/common';
+import {CatModule} from './api/cats/cat.module';
+import {PostgresqlModule} from "./database/postgresql.module";
 
 @Module({
-  imports: [CatsModule],
-  controllers: [CatsController],
-  providers: [CatsService],
+  imports: [
+    PostgresqlModule,
+    CatModule,
+  ],
 })
 export class AppModule {}

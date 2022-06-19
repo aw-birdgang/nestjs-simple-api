@@ -2,7 +2,7 @@ import {Exclude, Expose} from 'class-transformer';
 import {ApiProperty} from '@nestjs/swagger';
 import {Cat} from "../cat.entity";
 
-export class ResponseCatDto {
+export class CatResponseDto {
   @Exclude() private readonly _name: string;
   @Exclude() private readonly _breed: string;
   @Exclude() private readonly _age: number;
@@ -20,12 +20,12 @@ export class ResponseCatDto {
   }
   @ApiProperty({ description: '번식' })
   @Expose()
-  get totalSupply(): string {
+  get breed(): string {
     return this._breed;
   }
   @ApiProperty({ description: '나이' })
   @Expose()
-  get decimals(): number {
+  get age(): number {
     return this._age;
   }
 }
