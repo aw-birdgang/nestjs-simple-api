@@ -7,5 +7,11 @@ import {PostgresqlModule} from "./database/postgresql.module";
     PostgresqlModule,
     CatModule,
   ],
+  // providers: [
+  //   {
+  //     provide: APP_INTERCEPTOR,
+  //     useClass: CacheInterceptor,
+  //   },
+  // ],
 })
 export class AppModule {}

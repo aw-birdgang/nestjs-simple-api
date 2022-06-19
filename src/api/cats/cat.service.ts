@@ -1,4 +1,4 @@
-import {Injectable, Logger, NotFoundException} from '@nestjs/common';
+import {CACHE_MANAGER, Inject, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {Cat} from "./cat.entity";
 import {CatCreateRequestDto} from "./dto/cat-create-request.dto";
 import {CatResponseDto} from "./dto/cat-response.dto";
@@ -7,13 +7,14 @@ import Message from 'src/api/cats/cat.message';
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CatUpdateRequestDto} from "./dto/cat-update-request.dto";
-
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class CatService {
     constructor(
         @InjectRepository(Cat)
         private catRepository: Repository<Cat>,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {}
 
     private readonly logger = new Logger(CatService.name);
@@ -24,7 +25,8 @@ export class CatService {
     }
 
     async findAll(): Promise<Cat[]> {
-        return this.catRepository.find();
+        const results = await this.catRepository.find();
+        return results;
     }
 
     async findById(id: number): Promise<CatResponseDto> {
@@ -33,6 +35,12 @@ export class CatService {
     }
 
     private async findCatById(id: number): Promise<Cat> {
+        const cachedItem = await this.cacheManager.get('cached_item') as Cat;
+        if (cachedItem) {
+            this.logger.log('hit!!!' + cachedItem);
+            return cachedItem;
+        }
+
         const findOneOptions = {
             where: { id: id },
         };
@@ -43,6 +51,8 @@ export class CatService {
         if (isEmpty(cat) === true) {
             throw new NotFoundException(Message.NOT_FOUND_CAT);
         }
+        this.logger.log('will cache' + cat);
+        await this.cacheManager.set('cached_item', cat, {ttl: 10});
         return cat;
     }
 
