@@ -26,16 +26,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
 
+
+## Reference
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html#USER_ConnectToPostgreSQLInstance.Troubleshooting-timeout
 ```
-
