@@ -1,8 +1,11 @@
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
+import { Logger } from '@nestjs/common';
 
 export class ConfigService {
   private readonly envConfig: { [key: string]: string };
+
+  private readonly logger = new Logger(ConfigService.name);
 
   // constructor(filePath: string) {
   //   this.envConfig = dotenv.parse(fs.readFileSync(filePath));
@@ -14,6 +17,7 @@ export class ConfigService {
         : process.env.NODE_ENV === 'stage'
         ? '.env.stage'
         : '.env.dev';
+    this.logger.log('envFile : ' + envFile);
     this.envConfig = dotenv.parse(fs.readFileSync(envFile));
   }
 
