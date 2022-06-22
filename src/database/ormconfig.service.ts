@@ -15,7 +15,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     const username = this.configService.get('DB_USERNAME');
     const password = this.configService.get('DB_PASSWORD');
     const database = this.configService.get('DB_NAME');
-    const entities = ['dist/**/*.entity{.ts,.js}'];
+    const entities = [this.configService.get('ENTITIES')];
     const synchronize = this.configService.isEnv('development');
     const logging = this.configService.isEnv('development');
 
@@ -26,6 +26,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     this.logger.log('password : ' + password);
     this.logger.log('database : ' + database);
     this.logger.log('entities : ' + entities);
+    // this.logger.log('entities2 : ' + entities2);
     this.logger.log('synchronize : ' + synchronize);
     this.logger.log('logging : ' + logging);
 

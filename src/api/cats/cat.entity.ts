@@ -1,6 +1,13 @@
-import {BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn,} from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import {ApiProperty} from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Cat extends BaseEntity {
@@ -33,18 +40,13 @@ export class Cat extends BaseEntity {
   })
   public updated_at: Date;
 
-
   static of(params: Partial<Cat>): Cat {
     const cat = new Cat();
     Object.assign(cat, params);
     return cat;
   }
 
-  update(
-    name: string,
-    breed: string,
-    age: number,
-  ): void {
+  update(name: string, breed: string, age: number): void {
     this.name = name;
     this.breed = breed;
     this.age = age;

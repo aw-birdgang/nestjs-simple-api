@@ -1,6 +1,6 @@
-import {Exclude, Expose} from 'class-transformer';
-import {ApiProperty} from '@nestjs/swagger';
-import {Cat} from "../cat.entity";
+import { Exclude, Expose } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
+import { Cat } from '../cat.entity';
 
 export class CatResponseDto {
   @Exclude() private readonly _name: string;
